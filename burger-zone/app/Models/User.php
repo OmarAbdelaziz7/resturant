@@ -15,7 +15,7 @@ use Filament\Panel;
 //         return true; // أو تحدد conditions معينة
 //     }
 // }
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -63,8 +63,8 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Address::class);
     }
-        public function canAccessPanel(Panel $panel): bool
-    {
-        return true; // أو تحدد conditions معينة
-    }
+    //     public function canAccessPanel(Panel $panel): bool
+    // {
+    //     return true; // أو تحدد conditions معينة
+    // }
 }
