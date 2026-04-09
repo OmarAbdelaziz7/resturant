@@ -76,9 +76,9 @@
     </nav>
     
 
-<script src={{ asset("js/bootstrap.bundle.js") }}></script>
     <section class="container-fluid">
         @yield('content')
     </section>
+    <script src={{ asset("js/bootstrap.bundle.js") }}></script>
 </body>
 </html>
