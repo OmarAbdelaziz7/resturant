@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href={{ asset("css/bootstrap.min.css") }}>
+    {{-- <link rel="stylesheet" href={{ asset("css/bootstrap.min.css") }}> --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href={{ asset("css/style.css") }}>
     <title>burger-zone</title>
 </head>
-<body>
-    <nav
-        class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Burger Zone</a>
+<body class=" ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">Burger Zone</a>
             <button
                 class="navbar-toggler d-lg-none"
                 type="button"
@@ -24,53 +24,23 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavId">
+                <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page"
-                            >Home
-                            <span class="visually-hidden">(current)</span></a
-                        >
+                        <a class="nav-link active" href="#" aria-current="page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Menu</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            id="dropdownId"
-                            data-bs-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            >Dropdown</a
-                        >
-                        <div
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownId"
-                        >
-                            <a class="dropdown-item" href="#"
-                                >Action 1</a
-                            >
-                            <a class="dropdown-item" href="#"
-                                >Action 2</a
-                            >
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    
                 </ul>
-                <form class="d-flex my-2 my-lg-0">
-                    <input
-                        class="form-control me-sm-2"
-                        type="text"
-                        placeholder="Search"
-                    />
-                    <button
-                        class="btn btn-outline-success my-2 my-sm-0"
-                        type="submit"
-                    >
-                        Search
-                    </button>
-                </form>
+                
             </div>
         </div>
     </nav>
@@ -79,6 +49,6 @@
     <section class="container-fluid">
         @yield('content')
     </section>
-    <script src={{ asset("js/bootstrap.bundle.js") }}></script>
+    {{-- <script src={{ asset("js/bootstrap.bundle.js") }}></script> --}}
 </body>
 </html>
