@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cupon;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 
-class CuponController extends Controller
+class CouponController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CuponController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cupon $cupon)
+    public function show(Coupon $coupon)
     {
         //
     }
@@ -42,7 +42,7 @@ class CuponController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cupon $cupon)
+    public function edit(Coupon $coupon)
     {
         //
     }
@@ -50,7 +50,7 @@ class CuponController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cupon $cupon)
+    public function update(Request $request, Coupon $coupon)
     {
         //
     }
@@ -58,7 +58,7 @@ class CuponController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cupon $cupon)
+    public function destroy(Coupon $coupon)
     {
         //
     }
