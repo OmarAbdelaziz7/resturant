@@ -12,7 +12,7 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.orderitems');
     }
 
     /**

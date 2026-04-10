@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
+
 
 // class User extends Authenticatable 
 // {
@@ -29,6 +28,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -63,6 +63,27 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
+
+    // Role constants
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
+    /**
+     * Check if the user is an admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * Check if the user is a regular user
+     */
+    public function isUser(): bool
+    {
+        return $this->role && $this->role === self::ROLE_USER;
+    }
+
     //     public function canAccessPanel(Panel $panel): bool
     // {
     //     return true; // أو تحدد conditions معينة
