@@ -9,6 +9,8 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 
 // Auth Routes (No middleware needed)
@@ -28,13 +30,11 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
     
     // Profile & Settings
-    Route::get('/admin/profile', function () {
-        return view('admin.profile');
-    })->name('admin.profile');
-    
-    Route::get('/admin/settings', function () {
-        return view('admin.settings');
-    })->name('admin.settings');
+    Route::get('/admin/profile', [ProfileController::class, 'index'])->name('admin.profile');
+    Route::post('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+
+    Route::get('/admin/settings', [SettingsController::class, 'index'])->name('admin.settings');
+    Route::post('/admin/settings', [SettingsController::class, 'update'])->name('admin.settings.update');
 
     // Admin Resources with proper naming
     Route::prefix('admin')->name('admin.')->group(function () {

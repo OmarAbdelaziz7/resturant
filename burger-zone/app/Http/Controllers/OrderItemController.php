@@ -12,23 +12,8 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        return view('admin.orderitems');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        $orderItems = OrderItem::with(['order', 'product'])->paginate(10);
+        return view('admin.orderitems', compact('orderItems'));
     }
 
     /**
@@ -36,30 +21,7 @@ class OrderItemController extends Controller
      */
     public function show(OrderItem $orderItem)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(OrderItem $orderItem)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, OrderItem $orderItem)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(OrderItem $orderItem)
-    {
-        //
+        $orderItem->load(['order', 'product']);
+        return view('admin.orderitems.show', compact('orderItem'));
     }
 }

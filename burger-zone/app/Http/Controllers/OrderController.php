@@ -12,23 +12,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.orders');
+        $orders = Order::with('user')->latest()->paginate(10);
+        return view('admin.orders', compact('orders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function countOrders()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        $totalOrders = Order::count();
+        return view('admin.dashboard', compact('totalOrders'));
     }
 
     /**
@@ -36,7 +27,8 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $order->load(['user', 'items.product']);
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
@@ -44,7 +36,11 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $statusOptions = ['pending', 'confirmed', 'preparing', 'out_for_delivery', 'delivered', 'cancelled'];
+        $paymentMethods = ['cash', 'card'];
+        $paymentStatuses = ['pending', 'paid'];
+
+        return view('admin.orders.edit', compact('order', 'statusOptions', 'paymentMethods', 'paymentStatuses'));
     }
 
     /**
@@ -52,7 +48,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $validated = $request->validate([
+            'status' => 'required|in:pending,confirmed,preparing,out_for_delivery,delivered,cancelled',
+            'payment_status' => 'required|in:pending,paid',
+            'payment_method' => 'required|in:cash,card',
+            'notes' => 'nullable|string',
+        ]);
+
+        $order->update($validated);
+
+        return redirect()->route('admin.orders.show', $order)->with('success', 'Order updated successfully.');
     }
 
     /**
@@ -60,6 +65,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully.');
     }
 }

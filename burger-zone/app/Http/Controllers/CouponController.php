@@ -12,7 +12,8 @@ class CouponController extends Controller
      */
     public function index()
     {
-        return view('admin.coupons');
+        $coupons = Coupon::paginate(10);
+        return view('admin.coupons', compact('coupons'));
     }
 
     /**
@@ -20,7 +21,8 @@ class CouponController extends Controller
      */
     public function create()
     {
-        //
+        $types = ['percentage', 'fixed'];
+        return view('admin.coupons.create', compact('types'));
     }
 
     /**
@@ -28,7 +30,21 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'code' => 'required|string|max:255|unique:coupons,code',
+            'type' => 'required|in:percentage,fixed',
+            'value' => 'required|numeric|min:0.01',
+            'min_order' => 'nullable|numeric|min:0',
+            'max_uses' => 'nullable|integer|min:1',
+            'is_active' => 'boolean',
+            'expires_at' => 'nullable|date',
+        ]);
+
+        $validated['is_active'] = $request->has('is_active');
+
+        Coupon::create($validated);
+
+        return redirect()->route('admin.coupons.index')->with('success', 'Coupon created successfully.');
     }
 
     /**
@@ -36,7 +52,7 @@ class CouponController extends Controller
      */
     public function show(Coupon $coupon)
     {
-        //
+        return view('admin.coupons.show', compact('coupon'));
     }
 
     /**
@@ -44,7 +60,8 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        //
+        $types = ['percentage', 'fixed'];
+        return view('admin.coupons.edit', compact('coupon', 'types'));
     }
 
     /**
@@ -52,7 +69,21 @@ class CouponController extends Controller
      */
     public function update(Request $request, Coupon $coupon)
     {
-        //
+        $validated = $request->validate([
+            'code' => 'required|string|max:255|unique:coupons,code,' . $coupon->id,
+            'type' => 'required|in:percentage,fixed',
+            'value' => 'required|numeric|min:0.01',
+            'min_order' => 'nullable|numeric|min:0',
+            'max_uses' => 'nullable|integer|min:1',
+            'is_active' => 'boolean',
+            'expires_at' => 'nullable|date',
+        ]);
+
+        $validated['is_active'] = $request->has('is_active');
+
+        $coupon->update($validated);
+
+        return redirect()->route('admin.coupons.index')->with('success', 'Coupon updated successfully.');
     }
 
     /**
@@ -60,6 +91,7 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
-        //
+        $coupon->delete();
+        return redirect()->route('admin.coupons.index')->with('success', 'Coupon deleted successfully.');
     }
 }

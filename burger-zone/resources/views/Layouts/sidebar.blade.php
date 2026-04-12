@@ -1,7 +1,11 @@
 <!-- Main Layout with Sidebar -->
-@php use Illuminate\Support\Facades\Auth; @endphp
+@php 
+use Illuminate\Support\Facades\Auth;
+$userTheme = Auth::user()->theme ?? 'light';
+$isDarkTheme = $userTheme === 'dark';
+@endphp
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="{{ $userTheme }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,65 +13,65 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>burger-zone</title>
 </head>
-<body>
-<div class="d-flex">
+<body class="{{ $isDarkTheme ? 'dark-theme' : 'light-theme' }}">
+<div class="d-flex dashboard-container">
     <!-- Sidebar -->
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; min-height: 100vh;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <div class="d-flex flex-column flex-shrink-0 p-3 sidebar-container {{ $isDarkTheme ? 'sidebar-dark' : 'sidebar-light' }}" style="width: 280px; min-height: 100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none sidebar-brand {{ $isDarkTheme ? 'link-light' : 'link-dark' }}">
             <span class="fs-4">Burger Zone</span>
         </a>
-        <hr>
+        <hr class="sidebar-divider">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link active" aria-current="page">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" aria-current="page">
                     <i class="bi bi-house-door me-2"></i>
                     Dashboard
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.categories.index') }}" class="nav-link link-dark">
+                <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-grid me-2"></i>
                     Categories
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.products.index') }}" class="nav-link link-dark">
+                <a href="{{ route('admin.products.index') }}" class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-box-seam me-2"></i>
                     Products
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.orders.index') }}" class="nav-link link-dark">
+                <a href="{{ route('admin.orders.index') }}" class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-receipt me-2"></i>
                     Orders
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.coupons.index') }}" class="nav-link link-dark">
+                <a href="{{ route('admin.coupons.index') }}" class="nav-link {{ request()->routeIs('admin.coupons.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-tag me-2"></i>
                     Coupons
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.users.index') }}" class="nav-link link-dark">
+                <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-people me-2"></i>
                     Users
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.addresses.index') }}" class="nav-link link-dark">
+                <a href="{{ route('admin.addresses.index') }}" class="nav-link {{ request()->routeIs('admin.addresses.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-geo-alt me-2"></i>
                     Addresses
                 </a>
             </li>
         </ul>
-        <hr>
+        <hr class="sidebar-divider">
         <div class="dropdown">
-            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle sidebar-user {{ $isDarkTheme ? 'link-light' : 'link-dark' }}" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>{{ Auth::user()->name }}</strong>
             </a>
-            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <ul class="dropdown-menu text-small shadow {{ $isDarkTheme ? 'dropdown-dark' : '' }}" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="{{ route('admin.profile') }}">Profile</a></li>
                 <li><a class="dropdown-item" href="{{ route('admin.settings') }}">Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -84,7 +88,7 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="flex-grow-1 p-3">
+    <div class="flex-grow-1 p-3 main-content-container {{ $isDarkTheme ? 'main-content-dark' : 'main-content-light' }}">
         @yield('content')
     </div>
 </div>

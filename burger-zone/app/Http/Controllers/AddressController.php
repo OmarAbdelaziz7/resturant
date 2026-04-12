@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -12,7 +13,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-        return view('admin.adresses');
+        $addresses = Address::with('user')->paginate(10);
+        return view('admin.addresses', compact('addresses'));
     }
 
     /**
@@ -20,7 +22,8 @@ class AddressController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('admin.addresses.create', compact('users'));
     }
 
     /**
@@ -28,7 +31,20 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'label' => 'nullable|string|max:255',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'is_default' => 'boolean',
+        ]);
+
+        $validated['is_default'] = $request->has('is_default');
+
+        Address::create($validated);
+
+        return redirect()->route('admin.addresses.index')->with('success', 'Address created successfully.');
     }
 
     /**
@@ -36,7 +52,7 @@ class AddressController extends Controller
      */
     public function show(Address $address)
     {
-        //
+        return view('admin.addresses.show', compact('address'));
     }
 
     /**
@@ -44,7 +60,8 @@ class AddressController extends Controller
      */
     public function edit(Address $address)
     {
-        //
+        $users = User::all();
+        return view('admin.addresses.edit', compact('address', 'users'));
     }
 
     /**
@@ -52,7 +69,20 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'label' => 'nullable|string|max:255',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'is_default' => 'boolean',
+        ]);
+
+        $validated['is_default'] = $request->has('is_default');
+
+        $address->update($validated);
+
+        return redirect()->route('admin.addresses.index')->with('success', 'Address updated successfully.');
     }
 
     /**
@@ -60,6 +90,7 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        //
+        $address->delete();
+        return redirect()->route('admin.addresses.index')->with('success', 'Address deleted successfully.');
     }
 }
