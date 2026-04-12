@@ -42,6 +42,7 @@
                         <tr>
                             <td>{{ $coupon->id }}</td>
                             <td><code>{{ $coupon->code }}</code></td>
+                            <td>{{ $coupon->type === 'percentage' ? 'Percentage' : 'Fixed Amount' }}</td>
                             <td>
                                 @if($coupon->type === 'percentage')
                                     <span class="badge bg-info">{{ $coupon->value }}%</span>
