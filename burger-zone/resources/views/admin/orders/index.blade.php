@@ -60,17 +60,17 @@
                             <td><strong>${{ number_format($order->total, 2) }}</strong></td>
                             <td>{{ $order->created_at->format('M d, Y') }}</td>
                             <td>
-                                <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-info">
-                                    <i class="bi bi-eye"></i>
+                                <a href="{{ route('admin.orders.show', $order) }}" class="btn text-light btn-sm btn-info">
+                                    <i class="bi bi-eye">Show</i>
                                 </a>
-                                <a href="{{ route('admin.orders.edit', $order) }}" class="btn btn-sm btn-warning">
-                                    <i class="bi bi-pencil"></i>
+                                <a href="{{ route('admin.orders.edit', $order) }}" class="btn text-light btn-sm btn-warning">
+                                    <i class="bi bi-pencil">Edit</i>
                                 </a>
                                 <form action="{{ route('admin.orders.destroy', $order) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                        <i class="bi bi-trash"></i>
+                                    <button type="submit" class="btn text-light btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                        <i class="bi bi-trash">Delete</i>
                                     </button>
                                 </form>
                             </td>

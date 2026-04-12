@@ -47,6 +47,12 @@ $isDarkTheme = $userTheme === 'dark';
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.orderitems.index') }}" class="nav-link {{ request()->routeIs('admin.orderitems.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
+                    <i class="bi bi-receipt me-2"></i>
+                    Order Items
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.coupons.index') }}" class="nav-link {{ request()->routeIs('admin.coupons.*') ? 'active' : ($isDarkTheme ? 'link-light' : 'link-dark') }}">
                     <i class="bi bi-tag me-2"></i>
                     Coupons

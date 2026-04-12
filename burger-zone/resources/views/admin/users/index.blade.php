@@ -8,7 +8,7 @@
             <p class="text-muted">Manage admin and customer accounts</p>
         </div>
         <div class="col-md-4 text-end">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+            <a href="{{ route('admin.users.create') }}" class="btn text-light btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>Add User
             </a>
         </div>
@@ -49,17 +49,17 @@
                             </td>
                             <td>{{ $user->created_at->format('M d, Y') }}</td>
                             <td>
-                                <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-info">
-                                    <i class="bi bi-eye"></i>
+                                <a href="{{ route('admin.users.show', $user) }}" class="btn text-light btn-sm btn-info">
+                                    <i class="bi bi-eye">Show</i>
                                 </a>
-                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">
-                                    <i class="bi bi-pencil"></i>
+                                <a href="{{ route('admin.users.edit', $user) }}" class="btn text-light btn-sm btn-warning">
+                                    <i class="bi bi-pencil">Edit</i>
                                 </a>
                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                        <i class="bi bi-trash"></i>
+                                    <button type="submit" class="btn text-light btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                        <i class="bi bi-trash">Delete</i>
                                     </button>
                                 </form>
                             </td>

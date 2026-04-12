@@ -39,8 +39,8 @@
                             <td><strong>${{ number_format($item->subtotal, 2) }}</strong></td>
                             <td>{{ $item->created_at->format('M d, Y') }}</td>
                             <td>
-                                <a href="{{ route('admin.orderitems.show', $item) }}" class="btn btn-sm btn-info">
-                                    <i class="bi bi-eye"></i>
+                                <a href="{{ route('admin.orderitems.show', $item) }}" class="btn text-light btn-sm btn-info">
+                                    <i class="bi bi-eye">Show</i>
                                 </a>
                             </td>
                         </tr>

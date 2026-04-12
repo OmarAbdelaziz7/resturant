@@ -8,7 +8,7 @@
             <p class="text-muted">Manage discount coupons</p>
         </div>
         <div class="col-md-4 text-end">
-            <a href="{{ route('admin.coupons.create') }}" class="btn btn-primary">
+            <a href="{{ route('admin.coupons.create') }}" class="btn text-light btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>Add Coupon
             </a>
         </div>
@@ -73,17 +73,17 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.coupons.show', $coupon) }}" class="btn btn-sm btn-info">
-                                    <i class="bi bi-eye"></i>
+                                <a href="{{ route('admin.coupons.show', $coupon) }}" class="btn text-light btn-sm btn-info">
+                                    <i class="bi bi-eye">Show</i>
                                 </a>
-                                <a href="{{ route('admin.coupons.edit', $coupon) }}" class="btn btn-sm btn-warning">
-                                    <i class="bi bi-pencil"></i>
+                                <a href="{{ route('admin.coupons.edit', $coupon) }}" class="btn text-light btn-sm btn-warning">
+                                    <i class="bi bi-pencil">Edit</i>
                                 </a>
                                 <form action="{{ route('admin.coupons.destroy', $coupon) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                        <i class="bi bi-trash"></i>
+                                    <button type="submit" class="btn btn-sm text-light btn-danger" onclick="return confirm('Are you sure?')">
+                                        <i class="bi bi-trash">Delete</i>
                                     </button>
                                 </form>
                             </td>
