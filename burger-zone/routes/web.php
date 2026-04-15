@@ -21,6 +21,11 @@ Route::post('/admin/login', [AuthController::class, 'login'])->name('auth.login'
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/menu', function () {
+    $categories = \App\Models\Category::where('is_active', true)->orderBy('sort_order')->get();
+    $products = \App\Models\Product::with('category')->where('is_available', true)->orderBy('sort_order')->get();
+    return view('menu', compact('categories', 'products'));
+});
 
 // Admin Routes (Protected by admin middleware)
 Route::middleware(['admin'])->group(function () {
