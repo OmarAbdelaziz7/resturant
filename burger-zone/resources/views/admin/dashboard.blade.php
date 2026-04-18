@@ -3,7 +3,7 @@
 @section('content')
 <br>
     <h1>Admin Dashboard</h1>
-    <p>Welcome to the admin dashboard. Here you can manage your store's products, categories, orders, and more.</p>
+<p class="text-muted">Manage your store easily 🚀</p>
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -16,8 +16,20 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Orders</h5>
-                    <p class="card-text">{{ $totalOrders }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title">Total Orders</h5>
+                        <p class="card-text ">{{ $totalOrders }}</p>
+
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                            <h6 class="card-text ">Pending Orders</h6>
+                            <p class="card-text ">{{ $pendingOrders }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="card-text ">Delivered Orders</h6>
+                    <p class="card-text ">{{ $DeliveredOrders }}</p>
+                    </div>
                 </div>
             </div>
         </div>

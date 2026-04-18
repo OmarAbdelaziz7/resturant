@@ -17,6 +17,8 @@ class DashboardController extends Controller
         $totalProducts = Product::count();
         $totalOrders = Order::count();
         $totalUsers = User::count();
-        return view('admin.dashboard', compact('totalProducts', 'totalOrders', 'totalUsers'));
+        $pendingOrders = Order::where('status', 'pending')->count();
+        $DeliveredOrders = Order::where('status', 'delivered')->count();
+        return view('admin.dashboard', compact('totalProducts', 'totalOrders', 'totalUsers', 'pendingOrders', 'DeliveredOrders'));
     }
 }
