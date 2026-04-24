@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h5>Burger Zone</h5>
+                <h5 style="font-family: 'Dancing Script', cursive; font-size: 32px; color: #ffff;">Burger Zone</h5>
                 <p>Delicious burgers made with fresh ingredients.</p>
             </div>
             <div class="col-md-6 text-md-end">

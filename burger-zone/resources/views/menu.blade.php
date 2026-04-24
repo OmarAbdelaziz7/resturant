@@ -58,5 +58,28 @@
     </div>
   </section>
 
+@section('scripts')
+<script>
+  $(function() {
+    const $filters = $('.filters_menu li');
+    const $items = $('.filters-content .grid > .col-sm-6');
+
+    $filters.on('click', function() {
+      const filter = $(this).data('filter');
+
+      $filters.removeClass('active');
+      $(this).addClass('active');
+
+      if (filter === '*') {
+        $items.filter(':hidden').fadeIn(300);
+        $items.filter(':visible').css({ opacity: 1 });
+      } else {
+        $items.filter(':visible').not(filter).fadeOut(250);
+        $items.filter(filter).fadeIn(300);
+      }
+    });
+  });
+</script>
 @endsection
 
+@endsection

@@ -67,6 +67,8 @@
       @yield('content')
   </section>
 
+  @include('Layouts.footer')
+
   <!-- jQuery must be loaded first -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <!-- Then Bootstrap -->
