@@ -24,7 +24,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container p-0">
           <a class="navbar-brand" href="{{ url('/') }}">
-            <span style="font-family: 'Dancing Script', cursive; font-size: 32px; color: #ffffff;">
+            <span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 32px; color: #ffffff;">
               Burger Zone
             </span>
           </a>
@@ -35,26 +35,47 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
+              <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('home') }}" style="color: white; text-transform: uppercase;">Home</a>
+              </li>
+              <li class="nav-item {{ request()->routeIs('menu') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('menu') }}" style="color: white; text-transform: uppercase;">Menu</a>
+              </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}" style="color: white; text-transform: uppercase;">Home </a>
+                <a class="nav-link" href="{{ route('home') }}#about" style="color: white; text-transform: uppercase;">About</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="{{ url('/menu') }}" style="color: white; text-transform: uppercase;">Menu <span class="sr-only">(current)</span> </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" style="color: white; text-transform: uppercase;">About</a>
-              </li>
+              @auth
+                @if(!Auth::user()->isAdmin())
+                  <li class="nav-item {{ request()->routeIs('account.orders') || request()->routeIs('account.orders.show') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('account.orders') }}" style="color: white; text-transform: uppercase;">My Orders</a>
+                  </li>
+                @endif
+              @endauth
             </ul>
             <div class="user_option" style="display: flex; align-items: center;">
-              <a href="" class="user_link" style="color: white; margin-right: 15px; font-size: 18px;">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
-              <a class="cart_link" href="#" style="color: white; margin-right: 15px; font-size: 18px;">
+              <a href="{{ route('cart.index') }}" class="user_link" style="color: white; margin-right: 15px; font-size: 18px;">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               </a>
-              <a href="" class="order_online" style="display: inline-block; padding: 8px 30px; background-color: #ffbe33; color: #ffffff; border-radius: 45px; transition: all 0.3s; border: none; text-decoration: none;">
-                Order Online
-              </a>
+              @auth
+                @if(!Auth::user()->isAdmin())
+                  <a href="{{ route('account.orders') }}" class="cart_link" style="color: white; margin-right: 15px; font-size: 18px;">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                  </a>
+                @endif
+                <form action="{{ route('user.logout') }}" method="POST" style="display: inline; margin: 0;">
+                    @csrf
+                    <button type="submit" class="order_online" style="display: inline-block; padding: 8px 30px; background-color: #ffbe33; color: #ffffff; border-radius: 45px; transition: all 0.3s; border: none; text-decoration: none; cursor: pointer;">
+                        Logout
+                    </button>
+                </form>
+              @else
+                <a href="{{ route('login') }}" class="cart_link" style="color: white; margin-right: 15px; font-size: 18px;">
+                  <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </a>
+                <a href="{{ route('register') }}" class="order_online" style="display: inline-block; padding: 8px 30px; background-color: #ffbe33; color: #ffffff; border-radius: 45px; transition: all 0.3s; border: none; text-decoration: none;">
+                  Register
+                </a>
+              @endauth
             </div>
           </div>
         </nav>
